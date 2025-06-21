@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="https://moderncat.com/wp-content/uploads/2025/05/ss_2222694935_jesadaphorn-940x640.jpg" type="image/x-icon">
+    <title>My HTML Page</title>
+    <style>
+        /* Base styles */
+        * {
+            box-sizing: border-box;
+        }
+        
+        .main-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            z-index: 1000;
+            background: linear-gradient(135deg, #d7def6 0%,#05c753 48% , #52a6f4 100%);
+            box-shadow: 0 6px 24px rgba(84, 120, 240, 0.10);
+            border-radius: 0 0 18px 18px;
+            padding: 14px 0;
+            animation: navFadeIn 1.2s cubic-bezier(0.4,0,0.2,1);
+        }
+
+        @keyframes navFadeIn {
+            from { opacity: 0; transform: translateY(-40px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        .main-menu .menu-list {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 18px;
+            height: 60px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .main-menu .list,
+        #enroll-icon {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            position: relative;
+        }
+
+        .main-menu .list a,
+        #enroll-icon span {
+            color: #e6eef7;
+            text-decoration: none;
+            font-weight: bold;
+            font-family: inherit;
+            font-size: 1.08em;
+            padding: 10px 22px;
+            border-radius: 8px;
+            transition: 
+                background 0.4s cubic-bezier(0.4,0,0.2,1),
+                color 0.3s,
+                box-shadow 0.4s,
+                transform 0.3s;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .main-menu .list a::before,
+        #enroll-icon span::before {
+            content: "";
+            position: absolute;
+            left: 0; top: 0; right: 0; bottom: 0;
+            background: linear-gradient(90deg, #6887ed 0%,#05c753 54% , #c7cee4 100%);
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.4s;
+            border-radius: 8px;
+        }
+
+        .main-menu .list a:hover,
+        #enroll-icon span:hover {
+            color: #fff;
+            box-shadow: 0 6px 24px rgba(84, 240, 206, 0.18);
+            letter-spacing: 1.5px;
+            transform: scale(1.09) rotate(-2deg);
+        }
+
+        .main-menu .list a:hover::before,
+        #enroll-icon span:hover::before {
+            opacity: 1;
+        }
+
+        .main-menu .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #4aeeac;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(31, 249, 202, 0.15);
+            border-radius: 8px;
+            z-index: 100;
+            padding: 0;
+            animation: dropdownFade 0.5s;
+        }
+
+        @keyframes dropdownFade {
+            from { opacity: 0; transform: translateY(-10px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        .main-menu .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .main-menu .dropdown-menu a {
+            display: block;
+            padding: 12px 20px;
+            color: #028742;
+            background: none;
+            border-radius: 0;
+            font-weight: normal;
+            transition: background 0.6s, color 0.3s;
+        }
+
+        .main-menu .dropdown-menu a:hover {
+            background: #3bf7a8;
+            color: #fff;
+            border-radius: 8px;
+            transform: translateX(6px) scale(1.05);
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #d7def6 0%,#3bf7a8 55%, #52a6f4 100%);
+            background-attachment: fixed;
+            animation: bgMove 10s ease-in-out infinite alternate;
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            padding-top: 90px;
+            margin: 0;
+        }
+
+        @keyframes bgMove {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+        
+        #enroll-icon{
+            color: #f0f3f5;
+            text-decoration: none;
+            font-weight: bold;
+            font-family: inherit;
+            font-size: 1em;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        #enroll-icon span:hover {
+            background: linear-gradient(90deg, #5478f0 0%, #cad3f0 100%);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(84, 120, 240, 0.2);
+            letter-spacing: 1px;
+            transform: scale(1.08);
+            transition: all 0.3s;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #099c7a;
+            margin-top: 20px;
+            font-size: 2.5em;
+        }
+        
+        .content-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 40px;
+            width: 90%;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .text-content {
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 30px;
+        }
+        
+        .image-container {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .image, .image1, .image2, .image3, .image4 {
+            position: absolute;
+            border-radius: 12%;
+            border: 3px solid rgb(77, 100, 96);
+            box-shadow: 5px 5px 10px rgb(79, 143, 130);
+            transition: transform 0.5s cubic-bezier(0.4,0,0.2,1), box-shadow 1s;
+        }
+        
+        .image {
+            width: 200px;
+            height: 212px;
+            bottom: 220px;
+            right: 3%;
+        }
+        
+        .image1 {
+            width: 150px;
+            height: 140px;
+            bottom: 100px;
+            right: 38%;   /* increased from 19% */
+        }
+        
+        .image2 {
+            width: 200px;
+            height: 150px;
+            bottom: 280px;
+            right: 43%;   /* increased from 23% */
+        }
+        
+        .image3 {
+            width: 200px;
+            height: 180px;
+            bottom: 100px;
+            right: 63%;   /* increased from 33% */
+        }
+        
+        .image4 {
+            width: 200px;
+            height: 150px;
+            bottom: 0px;
+            right: 3%;
+        }
+        
+        .image5 {
+            width: 200px;
+            height: 150px;
+            bottom: 70px;
+            right: 89%;
+            position: absolute;
+            border-radius: 12%;
+            border: 3px solid rgb(71, 105, 97);
+            box-shadow: 5px 5px 10px rgb(79, 143, 130);
+            transition: transform 0.5s cubic-bezier(0.4,0,0.2,1), box-shadow 1s;
+        }
+        
+        .image6 {
+            width: 200px;
+            height: 150px;
+            bottom: 270px;
+            right: 92%;
+            position: absolute;
+            border-radius: 12%;
+            border: 3px solid rgb(81, 89, 96);
+            box-shadow: 5px 5px 10px rgb(79, 143, 130);
+            transition: transform 0.5s cubic-bezier(0.4,0,0.2,1), box-shadow 1s;
+        }
+        
+        .image7 {
+            width: 200px;
+            height: 150px;
+            bottom: 470px;
+            right: 0%;
+            position: absolute;
+            border-radius: 12%;
+            border: 3px solid rgb(81, 89, 96);
+            box-shadow: 5px 5px 10px rgb(79, 143, 130);
+            transition: transform 0.5s cubic-bezier(0.4,0,0.2,1), box-shadow 1s;
+        }
+        
+        .image:hover,
+        .image1:hover,
+        .image2:hover,
+        .image3:hover,
+        .image4:hover,
+        .image5:hover,
+        .image6:hover,
+        .image7:hover {
+            transform: scale(1.08) rotate(2deg);
+            box-shadow: 0 8px 24px rgba(164, 182, 240, 0.25);
+        }
+        
+        #gift-btn {
+            background: linear-gradient(90deg, #81a0f7 0%, #099c7a 45%,#87a7d6 100%);
+            color: #f9fdff;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 16px rgba(18, 153, 237, 0.15);
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+            margin-bottom: 10px;
+        }
+        
+        #gift-btn:hover {
+            background: linear-gradient(90deg, #a3e1ef 0%, #05c753 100%);
+            color: #fff;
+            transform: scale(1.07) rotate(-2deg);
+            box-shadow: 0 8px 24px rgba(247, 151, 30, 0.25);
+        }
+        
+        #gift-message {
+            display: none;
+            text-align: center;
+            color: #589af0;
+            font-size: 1.3em;
+            font-weight: bold;
+            background: #c2efe1;
+            border: 2px solid #7df8d1;
+            border-radius: 12px;
+            padding: 18px 0;
+            margin: 0 auto 40px auto;
+            width: 320px;
+            box-shadow: 0 2px 12px rgba(98, 108, 249, 0.08);
+            animation: fadeInGift 0.7s;
+        }
+        
+        @keyframes fadeInGift {
+            from { opacity: 0; transform: translateY(30px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        
+        #more-btn {
+            margin-top: 14px;
+            background: linear-gradient(90deg, #54f0aa 0%, #52a6f4 100%);
+            color: #fff;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 24px;
+            font-size: 1.08em;
+            font-weight: bold;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 16px rgba(84, 120, 240, 0.13);
+            cursor: pointer;
+            transition: 
+                background 0.4s cubic-bezier(0.4,0,0.2,1),
+                color 0.3s,
+                box-shadow 0.4s,
+                transform 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #more-btn::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s, height 0.4s;
+            z-index: 0;
+        }
+
+        #more-btn:hover {
+            background: linear-gradient(90deg, #52a6f4 0%, #5478f0 100%);
+            color: #fff;
+            transform: scale(1.07) rotate(-2deg);
+            box-shadow: 0 8px 24px rgba(84, 120, 240, 0.22);
+        }
+
+        #more-btn:active::after {
+            width: 200%;
+            height: 200%;
+        }
+        
+        .info-section {
+            width: 90%;
+            max-width: 1200px;
+            margin: 60px auto 0 auto;
+            background: linear-gradient(120deg,#d7def6 0%,#099c7a 61%,#188af5 100%);
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(84,120,240,0.10);
+            padding: 36px 32px 32px 32px;
+        }
+        
+        .info-section h2 {
+            color: #274472;
+            font-size: 2em;
+            font-family: inherit;
+            margin-bottom: 18px;
+            text-align:center;
+            letter-spacing:1px;
+        }
+        
+        .info-section p {
+            color: #274472;
+            font-size: 1.13em;
+            line-height: 1.8;
+            margin-bottom: 18px;
+            text-align:justify;
+        }
+        
+        .info-cards {
+            display:flex;
+            flex-wrap:wrap;
+            gap:18px;
+            justify-content:center;
+            margin-top:32px;
+        }
+        
+        .info-card {
+            background:linear-gradient(120deg,#e0eafc 0%,#a5c7f7 100%);
+            border-radius:12px;
+            padding:18px 22px;
+            min-width:220px;
+            box-shadow:0 2px 12px rgba(84,120,240,0.08);
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .info-card h3 {
+            color:#5478f0;
+            margin-top:0;
+        }
+        
+        .info-card p {
+            margin:0;
+            color:#274472;
+        }
+        
+        #end-popup {
+            display:none;
+            position:fixed;
+            left:50%;
+            bottom:40px;
+            transform:translateX(-50%);
+            background:linear-gradient(90deg,#52a6f4,#d7def6);
+            color:#274472;
+            font-size:1.2em;
+            font-weight:bold;
+            padding:18px 36px;
+            border-radius:24px;
+            box-shadow:0 4px 24px rgba(84,120,240,0.18);
+            z-index:9999;
+            animation: fadeInEnd 1s;
+        }
+        
+        @keyframes fadeInEnd {
+            from { opacity: 0; transform: translateX(-50%) translateY(40px);}
+            to { opacity: 1; transform: translateX(-50%) translateY(0);}
+        }
+        
+        /* Mobile-specific adjustments */
+        @media (max-width: 768px) {
+            .main-menu .menu-list {
+                gap: 8px;
+                height: 50px;
+            }
+            
+            .main-menu .list a,
+            #enroll-icon span {
+                padding: 8px 12px;
+                font-size: 0.9em;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+                margin-top: 10px;
+            }
+            
+            .content-container {
+                margin-top: 20px;
+            }
+            
+            .image-container {
+                height: 500px;
+            }
+            
+            
+            .info-section {
+                padding: 24px 16px;
+            }
+            
+            .info-section h2 {
+                font-size: 1.5em;
+            }
+            
+            .info-section p {
+                font-size: 1em;
+            }
+            
+            #gift-message {
+                width: 90%;
+                max-width: 320px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-menu .menu-list {
+                gap: 4px;
+            }
+            
+            .main-menu .list a,
+            #enroll-icon span {
+                padding: 6px 8px;
+                font-size: 0.8em;
+            }
+            
+            h1 {
+                font-size: 1.5em;
+            }
+            
+            .image-container {
+                height: 300px; /* reduce container height for mobile */
+            }
+            .image4,
+            .image6 {
+                width: 90px !important;
+                height: 70px !important;
+                /* keep position: absolute, bottom, right as on desktop */
+            }
+            .image1{
+                width: 90px;
+                height:70px;
+                bottom: 250px;
+                right:53%;}
+                .image3{
+                    width: 120px;
+                height: 70px; 
+                right: 31%;
+                }
+            .image2{
+            width: 130px;
+            height: 120px;
+            bottom: 0px;
+            right: 65%;  }
+            .image{
+                width: 100px;
+                height: 100px;
+                bottom: 200px;
+                right:3%;
+            }
+            .image6{
+            width: 200px;
+            height: 150px;
+            bottom: 170px;
+            right: 67%;} 
+            .image5{
+                width: 90px;
+                height:70px;
+                bottom: 0px;
+                right:33%;}
+            .image7{
+                width: 90px;
+                height: 70px;
+                bottom: 80px;
+                right: 0%;
+
+            }
+            #gift-btn {
+                padding: 12px 30px;
+                font-size: 1em;
+            }
+            
+            #more-btn {
+                padding: 8px 20px;
+                font-size: 1em;
+            }
+            
+            .info-card {
+                min-width: 100%;
+            }
+        }
+    </style>  
+</head>
+<body>
+    <h1>Hello..... This is a pet World!</h1>
+    <nav class="main-menu">
+        <ul class="menu-list">
+            <li class="list"><a href="#" id="home-btn">
+                 <svg width="18" height="18" viewBox="0 0 20 20" fill="#e6eef7" style="vertical-align:middle;margin-right:7px;">
+                    <path d="M10 2L2 8.5V18h5.5v-5h5v5H18V8.5L10 2z" />
+                </svg>Home</a></li>
+            <li class="list"><a href="https://www.britannica.com/Animals-Nature"><svg width="18" height="18" viewBox="0 0 20 20" fill="#e6eef7" style="vertical-align:middle;margin-right:7px;">
+                    <circle cx="10" cy="6" r="4"/>
+                    <rect x="5" y="12" width="10" height="6" rx="3"/>
+                </svg>About</a></li>
+            <li class="list dropdown"><a href="#"> <svg width="18" height="18" viewBox="0 0 20 20" fill="#e6eef7" style="vertical-align:middle;margin-right:7px;">
+                    <path d="M2 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4zm2 0v.01L10 10l6-5.99V4H4zm0 2.236V16h12V6.236l-6 5.99-6-5.99z"/>
+                </svg>Contact</a>
+                <ul class="dropdown-menu">
+                   <li><a href="mailto:amland613@gmail.com?subject=Hello%20from%20Pet%20World&body=Hi%2C%20I%20want%20to%20contact%20you.">Email</a></li>
+                    <li><a href="https://www.facebook.com/share/16qjaHsq3w/" >Facebook</a></li>
+                    <li><a href="https://www.instagram.com/amlan.dod/">Instagram</a></li>
+                </ul>
+            </li>
+            <li class="list" id="enroll-icon" style="cursor:pointer;">
+                <span title="Enroll" style="display:flex;align-items:center;gap:6px;">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="#c1d9ef" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="10" cy="7" r="4"/>
+                        <ellipse cx="10" cy="15" rx="6" ry="3"/>
+                    </svg>
+                    Enroll
+                </span>
+            </li>
+        </ul>
+    </nav>
+    
+    <div id="enroll-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(21, 53, 232, 0.3); align-items:center; justify-content:center; z-index:9999;">
+        <form style="background: #fff; padding: 20px 28px; border-radius: 8px; box-shadow: 0 4px 16px rgba(161, 180, 243, 0.1); min-width: 260px; position:relative;">
+            <button type="button" id="close-enroll" style="position:absolute; top:8px; right:12px; background:none; border:none; font-size:1.2em; color:#5478f0; cursor:pointer;">&times;</button>
+            <h2 style="text-align:center; color:#5478f0; font-size:1.2em;">Enroll Now</h2>
+            <div style="margin-bottom: 14px;">
+                <label for="email" style="display:block; margin-bottom:5px; color:#5478f0; font-size:0.95em;">Email:</label>
+                <input type="email" id="email" name="email" required style="width:100%; padding:7px; border:1px solid #c1d9ef; border-radius:4px;">
+            </div>
+            <div style="margin-bottom: 16px;">
+                <label for="password" style="display:block; margin-bottom:5px; color:#5478f0; font-size:0.95em;">Password:</label>
+                <input type="password" id="password" name="password" required style="width:100%; padding:7px; border:1px solid #c1d9ef; border-radius:4px;">
+            </div>
+            <button type="submit" style="width:100%; background:linear-gradient(90deg,#5478f0,#8c9ac7); color:#fff; border:none; padding:8px 0; border-radius:4px; font-weight:bold; cursor:pointer; font-size:1em;">
+                Enroll Now
+            </button>
+        </form>
+    </div>
+    
+    <script>
+        const enrollIcon = document.getElementById('enroll-icon');
+        const enrollModal = document.getElementById('enroll-modal');
+        const closeEnroll = document.getElementById('close-enroll');
+
+        enrollIcon.addEventListener('click', () => {
+            enrollModal.style.display = 'flex';
+        });
+
+        closeEnroll.addEventListener('click', () => {
+            enrollModal.style.display = 'none';
+        });
+        
+        enrollModal.addEventListener('click', (e) => {
+            if (e.target === enrollModal) {
+                enrollModal.style.display = 'none';
+            }
+        });
+    </script>
+    
+    <div class="content-container">
+        <div class="text-content">
+            <h2 style="color: #274472; font-size: 2em; font-family: inherit; margin: 0;">
+                Love nature, Love animals
+            </h2>
+            <p style="margin-top: 18px; color: #274472; font-size: 1.08em; line-height: 1.7;">
+                Nature and animals are the heartbeats of our planet, each playing a vital role in maintaining the delicate balance of life.
+                When we take a moment to appreciate the beauty of a blooming flower, the gentle rustle of leaves in the wind, or the playful antics of a puppy, 
+                we are reminded of the simple joys that nature and animals bring into our lives. Our connection to the natural world is deep and ancient,
+                rooted in a shared history that stretches back to the dawn of humanity. By loving nature, we learn to respect the environment that sustains us,
+                recognizing that every tree, river, and mountain is part of a larger ecosystem that supports countless forms of life.
+                <br><br>
+                know more ,relize more
+                <span id="more-text" style="display:none;">
+                    <br><br>
+                    When we choose to love nature and animals, we become stewards of the earth, fostering a sense of wonder and gratitude in ourselves and future generations. 
+                    Every small action, from planting a tree to adopting a pet, contributes to a healthier, more harmonious planet. Let us celebrate the beauty of nature and the joy of animals, cherishing them as essential parts of our shared home. 
+                    Together, we can create a world where both people and the natural world thrive in harmony.
+                    <br><br>
+                    By supporting conservation efforts, reducing our ecological footprint, and spreading awareness, we can make a significant difference. Education and empathy are key to inspiring others to join in the mission to protect our planet. 
+                    The more we learn about the interconnectedness of all living things, the more motivated we become to act responsibly and compassionately.
+                    <br><br>
+                    In the end, loving nature and animals is about recognizing our place in the web of life and honoring the diversity and beauty that surrounds us. 
+                    It is a journey of discovery, respect, and care—a journey that benefits not only the world around us but also our own hearts and minds.
+                </span>
+            </p>
+            <button id="more-btn">
+                More
+            </button>
+        </div>
+        
+        <div class="image-container">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeLC-eEMqsqKGW3j4uq7wkBh4ABvUEbuIH5A&s" class="image">
+            <img src="https://i.pinimg.com/736x/1b/02/f4/1b02f47160c4ea54cf5faf3ffd47e576.jpg" class="image1">
+            <img src="https://t3.ftcdn.net/jpg/03/32/18/38/360_F_332183810_NYlVEYf3oPwC0dD4kqnVcpvd474hhXuv.jpg" class="image2">
+            <img src="https://thumbs.dreamstime.com/z/cartoon-nature-landscape-path-over-mountains-cartoon-nature-landscape-path-over-mountains-suitable-kid-background-game-106400371.jpg?ct=jpeg" class="image3">
+            <img src="https://www.w3schools.com/html/img_girl.jpg" class="image4">
+            <img src="https://i.pinimg.com/736x/8e/00/90/8e00903e62afb99dc2dadce6066a7c50.jpg" class="image5">
+            <img src="https://moderncat.com/wp-content/uploads/2025/05/ss_2222694935_jesadaphorn-940x640.jpg" class="image6">
+            <img src="https://previews.123rf.com/images/microone/microone2202/microone220200010/181613698-eco-world-concept-people-care-earth-environment-and-nature-protect-and-love-natural-life-woman.jpg" class="image7">
+        </div>
+    </div>
+    
+    <script>
+        // Show/hide more text on button click
+        document.getElementById('more-btn').onclick = function() {
+            var moreText = document.getElementById('more-text');
+            if (moreText.style.display === "none") {
+                moreText.style.display = "inline";
+                this.textContent = "Less";
+            } else {
+                moreText.style.display = "none";
+                this.textContent = "More";
+            }
+        }
+    </script>
+    
+    <div style="width:100%; display:flex; justify-content:center; margin: 60px 0 20px 0;">
+        <button id="gift-btn">Gift</button>
+    </div>
+    <div id="gift-message">Please Enroll first!</div>
+    
+    <script>
+        document.getElementById('gift-btn').onclick = function() {
+            var msg = document.getElementById('gift-message');
+            msg.style.display = 'block';
+            msg.style.animation = 'fadeInGift 0.7s';
+        };
+    </script>
+    
+    <script>
+        document.getElementById('home-btn').onclick = function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+    </script>
+    
+    <div class="info-section">
+        <h2>
+            Why Loving Nature & Animals Matters
+        </h2>
+        <p>
+            Our world is a tapestry of vibrant ecosystems, each one teeming with life and wonder. From the smallest insects to the tallest trees, every living thing plays a crucial role in maintaining the balance of our environment. When we take time to appreciate nature, we open our hearts to the beauty and complexity that surrounds us. The chirping of birds at dawn, the gentle sway of grass in the breeze, and the playful leaps of animals in the wild all remind us that we are part of something much greater than ourselves.
+        </p>
+        <p>
+            Animals, in particular, have a unique way of touching our lives. Whether it's the loyal companionship of a dog, the soothing purr of a cat, or the awe-inspiring sight of a wild deer, animals teach us about empathy, patience, and unconditional love. They rely on us for protection and care, and in return, they offer us joy, comfort, and a sense of purpose. By supporting animal welfare and conservation efforts, we help ensure that future generations can experience the same connections and wonders that we do today.
+        </p>
+        <p>
+            Embracing a lifestyle that respects nature and animals doesn't require grand gestures. Simple actions—like reducing plastic use, planting native trees, or volunteering at a local animal shelter—can have a profound impact. Every small step contributes to a healthier planet and a brighter future for all living beings. When we choose to walk gently on the earth, we inspire others to do the same, creating a ripple effect of kindness and stewardship.
+        </p>
+        <p>
+            Imagine a world where forests flourish, rivers run clear, and animals roam freely in their natural habitats. This vision is possible if we work together, guided by respect and love for the natural world. Let's celebrate the diversity of life, cherish the moments we share with animals, and commit to protecting the environment that sustains us all. Your actions matter—be the change that makes our planet a safer, kinder, and more beautiful place for every creature.
+        </p>
+        <div class="info-cards">
+            <div class="info-card">
+                <h3>🌱 Eco Tip</h3>
+                <p>Try a "nature walk" this week—leave your phone behind and notice the sounds, colors, and life around you. It's a simple way to reconnect and recharge.</p>
+            </div>
+            <div class="info-card" style="background:linear-gradient(120deg,#b9e0ed 0%,#94c1e6 100%);">
+                <h3 style="color:#6a96d8;">🐾 Animal Fact</h3>
+                <p style="color:#4089d6;">Did you know? Elephants are known for their empathy—they comfort each other and even mourn lost companions.</p>
+            </div>
+            <div class="info-card" style="background:linear-gradient(120deg,#c2e9fb 0%,#76a7d7 100%);">
+                <h3 style="color:#274472;">🌏 Get Involved</h3>
+                <p>Join a local clean-up, support wildlife charities, or simply share your love for nature and animals with friends and family. Every voice counts!</p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="end-popup">
+        Thanks pls click HOME button !
+    </div>
+    
+    <script>
+    window.addEventListener('scroll', function() {
+        const popup = document.getElementById('end-popup');
+        if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 10)) {
+            popup.style.display = 'block';
+        } else {
+            popup.style.display = 'none';
+        }
+    });
+    </script>
+</body>
+</html>
